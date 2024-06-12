@@ -1,18 +1,22 @@
 body {
-    height: 90vh;
-    width: 90vh;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #container {
     display: flex;
+    width: 600px;
+    height: 600px;
     background-color: cornflowerblue;
     flex-wrap: wrap;
     
 }
 
 #container > div {
-    height: 100px;
-    width: 100px;
+    
+
 }
 
 * {
