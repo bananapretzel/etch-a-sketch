@@ -1,6 +1,8 @@
 const container = document.getElementById("container");
+let perfectSquare = 16;
+let squareRoot = Math.sqrt(perfectSquare);
 
-for (let i = 0; i < 256; i++) {
+for (let i = 0; i < squareRoot; i++) {
     const div = document.createElement("div");
     div.style. width = "37.5px";
     div.style.padding = 0;

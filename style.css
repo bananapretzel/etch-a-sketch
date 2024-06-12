@@ -3,6 +3,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
 
 #container {
@@ -14,9 +15,8 @@ body {
     
 }
 
-#container > div {
-    
-
+button {
+margin-bottom: 50px;
 }
 
 * {
