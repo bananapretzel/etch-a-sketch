@@ -33,12 +33,6 @@ button {
 margin-bottom: 50px;
 }
 
-/* #controls {
-    position: absolute;
-    top: 5%;
-    right: 5%;
-} */
-
 header {
     margin-top: 5vh;
     margin-left: 5vh;
@@ -46,4 +40,8 @@ header {
     display: flex;
     justify-content: space-between;
     
+}
+
+button {
+    margin-top: 25px;;
 }

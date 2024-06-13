@@ -3,10 +3,10 @@
 const container = document.getElementById("container");
 let squareRoot = 16;
 let perfectSquare = 256;
-let squareInPercent = 100/squareRoot;
+let squareInPercent = 100 / squareRoot;
 const pixelLength = parseInt(window.getComputedStyle(container).width);
 const dropDownBox = document.getElementById("selectedSquare");
-let squareSideLengthInPx = pixelLength/squareRoot;
+let squareSideLengthInPx = pixelLength / squareRoot;
 const selectedSquare = document.getElementById("selectedSquare");
 const colourChoice = document.getElementById("colour");
 const tintChoice = document.getElementById("tint");
@@ -38,59 +38,54 @@ function createSquares(numSquares, colourful, useTint) {
             } else if (!colourful && hoveredBefore === false) {
                 div.style.backgroundColor = "floralwhite";
             }
-            
+
             if (useTint && hoveredBefore === true) {
-                if (colourful) {
-                    div.style.opacity = div.style.opacity - 0.2;
-                } else if (!colourful){
-                    div.style.opacity = div.style.opacity - 0.2;
-                }
+                div.style.opacity = div.style.opacity - 0.1;
             }
             hoveredBefore = true;
         });
         container.appendChild(div);
     }
-    dropDownBox.selectedIndex = squareRoot-2;
+    dropDownBox.selectedIndex = squareRoot - 2;
 }
 
 
 function destroySquares() {
- while (container.firstElementChild) {
-    container.removeChild(container.firstElementChild);
- }
+    while (container.firstElementChild) {
+        container.removeChild(container.firstElementChild);
+    }
 }
 
 
 selectedSquare.addEventListener("change", function () {
     squareRoot = this.value;
     perfectSquare = squareRoot ** 2;
-    squareSideLengthInPx = pixelLength/squareRoot;
-    squareInPercent = 100/squareRoot;
+    squareSideLengthInPx = pixelLength / squareRoot;
+    squareInPercent = 100 / squareRoot;
     destroySquares();
-    createSquares(perfectSquare, isColourful);
+    createSquares(perfectSquare, isColourful, useTint);
 });
 
-colourChoice.addEventListener("change", function() {
+colourChoice.addEventListener("change", function () {
     if (this.value === "colour") {
         destroySquares();
         isColourful = true;
-        createSquares(perfectSquare, isColourful);
+        createSquares(perfectSquare, isColourful, useTint);
     } else if (this.value === "mono") {
         destroySquares();
         isColourful = false;
-        createSquares(perfectSquare, isColourful);
-    }
-});
-
-tintChoice.addEventListener("change", function() {
-    if (this.value === "yes") {
-        destroySquares();
-        useTint = true;
         createSquares(perfectSquare, isColourful, useTint);
     }
 });
 
-resetButton.addEventListener("click", function() {
+tintChoice.addEventListener("change", function () {
+    destroySquares();
+    useTint = this.value === "yes" ? true : false;
+    createSquares(perfectSquare, isColourful, useTint);
+
+});
+
+resetButton.addEventListener("click", function () {
     destroySquares();
     createSquares(perfectSquare, isColourful, useTint);
 })
