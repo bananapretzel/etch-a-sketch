@@ -9,7 +9,10 @@ const dropDownBox = document.getElementById("selectedSquare");
 let squareSideLengthInPx = pixelLength/squareRoot;
 const selectedSquare = document.getElementById("selectedSquare");
 const colourChoice = document.getElementById("colour");
+const tintChoice = document.getElementById("tint");
+const resetButton = document.getElementById("reset");
 let isColourful = false;
+let useTint = false;
 
 function populateSelectField() {
     for (let i = 2; i <= 100; i++) {
@@ -21,20 +24,30 @@ function populateSelectField() {
     }
 }
 
-function createSquares(numSquares, colourful) {
+function createSquares(numSquares, colourful, useTint) {
     for (let i = 0; i < numSquares; i++) {
         const div = document.createElement("div");
-
+        let hoveredBefore = false;
         div.style.width = div.style.heigh = `${squareInPercent}%`;
         div.style.backgroundColor = "black";
+        div.style.opacity = 1;
 
-        div.addEventListener("mouseover", () => {
-            if (colourful) {
+        div.addEventListener("mouseenter", () => {
+            if (colourful && hoveredBefore === false) {
                 div.style.backgroundColor = `hsl(${Math.floor(Math.random() * 360)}, 100%, 50%)`;
-            } else {
+            } else if (!colourful && hoveredBefore === false) {
                 div.style.backgroundColor = "floralwhite";
             }
-        })
+            
+            if (useTint && hoveredBefore === true) {
+                if (colourful) {
+                    div.style.opacity = div.style.opacity - 0.2;
+                } else if (!colourful){
+                    div.style.opacity = div.style.opacity - 0.2;
+                }
+            }
+            hoveredBefore = true;
+        });
         container.appendChild(div);
     }
     dropDownBox.selectedIndex = squareRoot-2;
@@ -67,12 +80,22 @@ colourChoice.addEventListener("change", function() {
         isColourful = false;
         createSquares(perfectSquare, isColourful);
     }
-}
+});
 
-)
+tintChoice.addEventListener("change", function() {
+    if (this.value === "yes") {
+        destroySquares();
+        useTint = true;
+        createSquares(perfectSquare, isColourful, useTint);
+    }
+});
 
-
+resetButton.addEventListener("click", function() {
+    destroySquares();
+    createSquares(perfectSquare, isColourful, useTint);
+})
 
 populateSelectField();
-createSquares(perfectSquare, isColourful);
+createSquares(perfectSquare, isColourful, useTint);
 colourChoice.selectedIndex = 0;
+tintChoice.selectedIndex = 0;
